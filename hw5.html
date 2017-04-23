@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>PHP Solr Client</title>
+	</head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+	<body>
+  <div ng-app="myApp" ng-controller="myCtrl"> 
+		<form accept-charset="utf-8">
+			<label for="q">Search:</label>
+      
+			 <input id="q" name="q" type="text" ng-keyup="aotu(q)" ng-model="q"/>
+
+			<input type="submit" value="Search" ng-click="search(q)"/> 
+
+			<br>
+			<input type="radio" name="rank" value="lucene" />lucene
+			<input type="radio" name="rank" value="pagerank" /> pagerank
+		</form>
+      <div ng-model="result">{{result}}</div>
+      <p id="demo"></p>
+  </div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $scope.search = function(q) {
+      url = "http://localhost/solr-php-client/hw5.php?q=" + q;
+      $http.get(url)
+      .then(function mySucces(response) {
+        $scope.result = response.data;
+    }, function myError(response) {
+        
+    });
+  }
+  
+  $scope.aotu = function(q) {
+
+  }
+});
+
+
+</script>
+</body> </html>
+
